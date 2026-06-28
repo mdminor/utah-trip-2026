@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utah Adventure 2026 🏜️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rust: #C1440E;
+    --terracotta: #D4623A;
+    --sand: #F2E8D9;
+    --cream: #FBF7F1;
+    --canyon: #8B3A1E;
+    --sage: #7A8C6E;
+    --sky: #5B8DB8;
+    --charcoal: #2A2520;
+    --muted: #7A6F66;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.6; }
+
+  .hero {
+    position: relative; min-height: 100vh;
+    background: linear-gradient(160deg, #1a0f08 0%, #3d1a0a 40%, #6b2d10 70%, #8B3A1E 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    overflow: hidden; padding: 40px 20px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(ellipse at 20% 80%, rgba(193,68,14,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(91,141,184,0.15) 0%, transparent 50%);
+  }
+  .hoodoos { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; overflow: hidden; }
+  .hoodoos svg { width: 100%; height: 100%; }
+  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 700px; padding-bottom: 180px; }
+  .hero-eyebrow { font-family: 'Caveat', cursive; font-size: 1.4rem; color: var(--terracotta); letter-spacing: 0.05em; margin-bottom: 16px; display: block; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 5.5rem); color: var(--sand); line-height: 1.05; margin-bottom: 24px; }
+  .hero h1 em { font-style: italic; color: #FFB07A; }
+  .hero-sub { font-size: 1.05rem; color: rgba(242,232,217,0.75); font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 40px; }
+  .hero-dates { display: inline-flex; gap: 12px; align-items: center; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; padding: 10px 28px; color: var(--sand); font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .hero-dates span { color: var(--terracotta); font-weight: 600; }
+
+  .intro { background: var(--rust); color: var(--sand); padding: 32px 24px; text-align: center; }
+  .intro p { max-width: 640px; margin: 0 auto; font-size: 1rem; line-height: 1.8; font-weight: 300; }
+  .intro p strong { font-weight: 600; color: #FFD0B0; }
+
+  .section-wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .day-block { margin: 60px 0 0; }
+  .day-header { display: flex; align-items: baseline; gap: 20px; padding: 28px 0 20px; border-top: 2px solid var(--rust); }
+  .day-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--rust); line-height: 1; min-width: 56px; }
+  .day-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); display: block; margin-bottom: 2px; }
+  .day-title { font-family: 'Playfair Display', serif; font-size: 1.75rem; color: var(--charcoal); }
+  .day-date { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--terracotta); display: block; }
+
+  .activity { display: grid; grid-template-columns: 80px 1fr; gap: 0 24px; margin-bottom: 0; position: relative; }
+  .activity::before { content: ''; position: absolute; left: 39px; top: 0; bottom: 0; width: 2px; background: #e8ddd5; z-index: 0; }
+  .activity:last-child::before { height: 32px; bottom: auto; }
+  .activity-time { font-size: 0.78rem; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; text-align: right; padding-top: 26px; position: relative; z-index: 1; }
+  .activity-dot { position: absolute; left: 32px; top: 28px; width: 16px; height: 16px; border-radius: 50%; background: var(--rust); border: 3px solid var(--cream); z-index: 2; }
+  .activity-dot.highlight { background: var(--terracotta); width: 20px; height: 20px; left: 30px; top: 26px; }
+  .activity-content { padding: 20px 0 28px; }
+  .activity-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+  .activity-label.food { color: var(--terracotta); }
+  .activity-label.hike { color: var(--sage); }
+  .activity-label.adventure { color: #C1440E; }
+  .activity-label.stay { color: var(--sky); }
+  .activity-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--charcoal); margin-bottom: 8px; line-height: 1.2; }
+  .activity-desc { font-size: 0.9rem; color: #5a504a; line-height: 1.7; margin-bottom: 12px; }
+
+  .stats-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .stat-pill { background: var(--sand); border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; font-weight: 500; color: var(--charcoal); display: flex; align-items: center; gap: 5px; }
+  .stat-pill.green { background: #E8EFE3; color: #3A5C30; }
+  .stat-pill.blue { background: #E3EEF7; color: #2A5880; }
+  .stat-pill.orange { background: #FDEEE7; color: #8B3A1E; }
+
+  .attire-box { background: linear-gradient(135deg, #FBF0E8, #F7EAD8); border-left: 3px solid var(--terracotta); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 14px; font-size: 0.85rem; }
+  .attire-box strong { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--terracotta); margin-bottom: 4px; }
+  .attire-box p { color: #5A3D2B; line-height: 1.5; }
+
+  .badge { display: inline-flex; align-items: center; gap: 5px; border-radius: 4px; padding: 3px 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; }
+  .badge.res-needed { background: #FEE9E9; color: #B91C1C; border: 1px solid #FCA5A5; }
+  .badge.res-done { background: #E9F7EF; color: #166534; border: 1px solid #86EFAC; }
+  .badge.no-res { background: #F3F4F6; color: #6B7280; border: 1px solid #D1D5DB; }
+
+  .img-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; border-radius: 12px; overflow: hidden; }
+  .img-strip.single { grid-template-columns: 1fr; }
+  .img-strip img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .img-caption { font-size: 0.72rem; color: var(--muted); font-style: italic; margin-top: 6px; text-align: center; }
+
+  .tip-box { background: var(--charcoal); color: var(--sand); border-radius: 12px; padding: 18px 22px; margin-top: 12px; font-size: 0.85rem; line-height: 1.6; }
+  .tip-box strong { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--terracotta); margin-bottom: 6px; }
+
+  .packing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .pack-card { background: white; border-radius: 12px; padding: 20px; }
+  .pack-card .icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .pack-card strong { font-size: 0.9rem; color: var(--charcoal); display: block; margin-bottom: 6px; }
+  .pack-card p { font-size: 0.82rem; color: var(--muted); }
+
+  footer { background: var(--charcoal); color: rgba(242,232,217,0.5); text-align: center; padding: 40px 20px; font-size: 0.8rem; margin-top: 80px; letter-spacing: 0.1em; }
+  footer strong { color: var(--terracotta); }
+
+  @media (max-width: 600px) {
+    .activity { grid-template-columns: 60px 1fr; gap: 0 14px; }
+    .activity::before { left: 29px; }
+    .activity-dot { left: 22px; }
+    .activity-dot.highlight { left: 20px; }
+    .img-strip img { height: 130px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">🏜️ The Adventure of a Lifetime</span>
+    <h1>Utah's <em>Wildest</em><br>Red Rock Road Trip</h1>
+    <p class="hero-sub">Bryce Canyon · Zion National Park · Grand Staircase</p>
+    <div class="hero-dates">
+      <span>July 9</span> — <span>July 13, 2026</span>
+    </div>
+  </div>
+  <div class="hoodoos">
+    <svg viewBox="0 0 1400 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,220 0,100 80,80 120,110 160,65 200,90 250,55 310,85 380,45 430,70 500,35 560,60 620,30 680,55 740,20 800,50 860,28 920,55 980,35 1040,60 1100,40 1160,65 1220,45 1300,70 1360,50 1400,70 1400,220" fill="#3d1805" opacity="0.6"/>
+      <polygon points="0,220 0,140 50,120 100,145 140,105 170,130 210,90 240,115 290,80 330,108 380,70 420,100 470,60 510,95 560,75 600,110 640,65 700,95 750,55 800,80 850,100 900,70 950,100 1000,55 1050,90 1100,70 1160,100 1210,65 1270,90 1320,70 1370,95 1400,80 1400,220" fill="#5c1e06" opacity="0.7"/>
+      <rect x="30" y="155" width="18" height="65" fill="#3d0d02" rx="3"/>
+      <ellipse cx="39" cy="155" rx="15" ry="10" fill="#3d0d02"/>
+      <rect x="90" y="140" width="22" height="80" fill="#3d0d02" rx="3"/>
+      <ellipse cx="101" cy="140" rx="18" ry="11" fill="#3d0d02"/>
+      <rect x="170" y="130" width="28" height="90" fill="#3d0d02" rx="3"/>
+      <ellipse cx="184" cy="130" rx="22" ry="13" fill="#3d0d02"/>
+      <rect x="250" y="150" width="16" height="70" fill="#3d0d02" rx="3"/>
+      <ellipse cx="258" cy="150" rx="13" ry="9" fill="#3d0d02"/>
+      <rect x="340" y="120" width="32" height="100" fill="#3d0d02" rx="3"/>
+      <ellipse cx="356" cy="120" rx="26" ry="15" fill="#3d0d02"/>
+      <rect x="420" y="145" width="20" height="75" fill="#3d0d02" rx="3"/>
+      <ellipse cx="430" cy="145" rx="16" ry="10" fill="#3d0d02"/>
+      <rect x="520" y="110" width="36" height="110" fill="#3d0d02" rx="3"/>
+      <ellipse cx="538" cy="110" rx="28" ry="16" fill="#3d0d02"/>
+      <rect x="600" y="140" width="18" height="80" fill="#3d0d02" rx="3"/>
+      <ellipse cx="609" cy="140" rx="14" ry="9" fill="#3d0d02"/>
+      <rect x="680" y="125" width="26" height="95" fill="#3d0d02" rx="3"/>
+      <ellipse cx="693" cy="125" rx="20" ry="12" fill="#3d0d02"/>
+      <rect x="760" y="100" width="40" height="120" fill="#3d0d02" rx="3"/>
+      <ellipse cx="780" cy="100" rx="32" ry="18" fill="#3d0d02"/>
+      <rect x="850" y="135" width="22" height="85" fill="#3d0d02" rx="3"/>
+      <ellipse cx="861" cy="135" rx="18" ry="11" fill="#3d0d02"/>
+      <rect x="950" y="115" width="30" height="105" fill="#3d0d02" rx="3"/>
+      <ellipse cx="965" cy="115" rx="24" ry="14" fill="#3d0d02"/>
+      <rect x="1040" y="150" width="16" height="70" fill="#3d0d02" rx="3"/>
+      <ellipse cx="1048" cy="150" rx="13" ry="9" fill="#3d0d02"/>
+      <rect x="1120" y="130" width="28" height="90" fill="#3d0d02" rx="3"/>
+      <ellipse cx="1134" cy="130" rx="22" ry="13" fill="#3d0d02"/>
+      <rect x="1210" y="145" width="20" height="75" fill="#3d0d02" rx="3"/>
+      <ellipse cx="1220" cy="145" rx="16" ry="10" fill="#3d0d02"/>
+      <rect x="1300" y="120" width="24" height="100" fill="#3d0d02" rx="3"/>
+      <ellipse cx="1312" cy="120" rx="19" ry="12" fill="#3d0d02"/>
+      <rect x="0" y="195" width="1400" height="25" fill="#1a0600"/>
+    </svg>
+  </div>
+</div>
+
+<div class="intro">
+  <p>Five days. Two national parks. One glass dome under the Milky Way. You're about to rappel into slot canyons, hike to 1,800-year-old trees, chase sunrises over a canyon full of alien-pink hoodoos, and swim under a 126-foot waterfall in the desert. <strong>Pack your hiking boots and your sense of wonder.</strong></p>
+</div>
+
+<!-- ══ DAY 1 ══ -->
+<div class="section-wrap">
+  <div class="day-block">
+    <div class="day-header">
+      <div class="day-number">01</div>
+      <div class="day-info">
+        <span class="day-label">Day One</span>
+        <div class="day-title">Wheels Down, Adventure Up</div>
+        <span class="day-date">Thursday, July 9</span>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">1:10 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label">✈ Arrival</div>
+        <div class="activity-title">Land at SLC, Grab the Keys</div>
+        <div class="activity-desc">Touch down at Salt Lake City International. Pick up your rental car and take a breath — the red rock kingdom awaits 4 hours south. You've got a legendary pizza lunch on the agenda first, so no rushing.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">2:00 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🍕 Lunch</div>
+        <div class="activity-title">Slackwater Pizzeria</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">Welcome to SLC — and welcome to one of its most beloved spots. Slackwater is a locally-owned artisan pizza and craft beer institution that's been slinging incredible pies since 2011, voted Best Pizza and Best Beer Selection in Salt Lake City. The sourdough crust uses a touch of honey — light, slightly sweet, totally addictive. Their <em>California Sunrise</em> (green goddess dressing, roasted chicken, peppered bacon, tomatoes) is their bestseller for a reason. And with 300+ craft beers, the beer menu could keep you busy for a week. Luckily, you only have an afternoon.</div>
+        <div class="stats-row">
+          <span class="stat-pill">💰 ~$10–20/person</span>
+          <span class="stat-pill orange">🍺 300+ craft beers</span>
+          <span class="stat-pill green">🌿 Vegan &amp; gluten-free options</span>
+        </div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>Come as you are — literally. This is a <em>casual, come-as-you-land</em> spot in the Granary District. Airport clothes, hiking gear, whatever you rolled off the plane in. The vibe is laid-back local. Save the fashion choices for somewhere that asks for them.</p>
+        </div>
+        <div class="img-strip">
+          <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" alt="Artisan pizza">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Casual restaurant">
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">3:00 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label">🚗 Drive + Grocery Stop</div>
+        <div class="activity-title">WinCo Foods → Bryce Canyon (4 hrs)</div>
+        <div class="activity-desc">Stock up on water (you will need more than you think — Utah is merciless), snacks, and anything you'll need for the week. Once you leave civilization heading south, grocery options become very sparse. Head down I-15, then east on Hwy 89 through stunning canyon country — the drive itself is a preview of what's to come.</div>
+        <div class="tip-box">
+          <strong>🌡️ Pro Tip</strong>
+          Bryce Canyon sits at over 8,000 feet elevation — dramatically cooler than the valley. That said, July afternoons can still be hot on exposed trails. Pack layers AND sunscreen. The Utah sun at altitude doesn't mess around.
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">7:30 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label stay">🌌 Check In</div>
+        <div class="activity-title">Clear Sky Resort — Your Home Base</div>
+        <div class="activity-desc">Welcome to one of the most extraordinary places you will ever sleep. Clear Sky Resort is the first and only glass dome resort in the United States — a constellation of geodesic Sky Domes nestled in a private 80-acre canyon, 15 minutes from Bryce Canyon National Park. Floor-to-ceiling panoramic glass means you can literally stargaze from bed. The Bryce Canyon area is a designated International Dark Sky Park — on a clear night, the Milky Way is so vivid it looks painted. Luxury 5-star mattresses, rainfall showers, private patios with fire pits. This isn't camping. This is glamping at its absolute zenith.</div>
+        <div class="stats-row">
+          <span class="stat-pill blue">🌟 International Dark Sky Park</span>
+          <span class="stat-pill orange">🔭 15 min from Bryce Canyon NP</span>
+          <span class="stat-pill green">🏔️ Private 80-acre canyon</span>
+        </div>
+        <div class="img-strip">
+          <img src="https://images.unsplash.com/photo-1500622944204-b135684e99fd?w=700&q=80" alt="Starry night sky" style="height:220px">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80" alt="Utah canyon at dusk" style="height:220px">
+        </div>
+        <div class="img-caption">The night sky at Bryce Canyon is genuinely otherworldly. No filter needed — or possible.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">8:15 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🍽️ Dinner</div>
+        <div class="activity-title">Showdowns Restaurant</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">Classic Southern Utah roadhouse fare after a long travel day. Think hearty portions, honest cooking, no fuss. You've been in airports and cars — you've earned something comforting and no-nonsense.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>Casual Western. Jeans and a t-shirt is the universal uniform. Flip flops and hiking clothes are completely at home. Nobody's dressing up on night one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DAY 2 ══ -->
+<div class="section-wrap">
+  <div class="day-block">
+    <div class="day-header">
+      <div class="day-number">02</div>
+      <div class="day-info">
+        <span class="day-label">Day Two</span>
+        <div class="day-title">Full Bryce Canyon Day — Hoodoo Madness</div>
+        <span class="day-date">Friday, July 10</span>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">5:00 AM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🌄 Morning Hike</div>
+        <div class="activity-title">Sunrise at Sunrise Point</div>
+        <div class="activity-desc">Yes, this is a 5 AM alarm. No, you will not regret it. Sunrise Point sits at 8,100 feet at the northernmost edge of the famous Bryce Amphitheater. As the sun clears the horizon, thousands of pink-orange hoodoos below you literally glow like embers. This is one of the most photographed sunrises in America for a reason. The trail is an easy paved 0.4-mile walk, so you can spend your energy jaw-dropping instead of huffing. Pro move: bring coffee from the resort.</div>
+        <div class="stats-row">
+          <span class="stat-pill green">🟢 Easy • 0.4 mi</span>
+          <span class="stat-pill">📍 8,100 ft elevation</span>
+          <span class="stat-pill orange">🌅 Arrive by 5:30 AM for best color</span>
+        </div>
+        <div class="img-strip single">
+          <img src="https://images.unsplash.com/photo-1590523278191-995cbcda646b?w=800&q=80" alt="Bryce Canyon hoodoos at sunrise" style="height:260px">
+        </div>
+        <div class="img-caption">Bryce Canyon's hoodoos at first light — pink and orange and completely surreal.</div>
+        <div class="tip-box">
+          <strong>🥶 Dress Warm</strong>
+          July mornings at 8,100 feet can be 45–55°F. Bring a layer you can peel off once the sun rises. Cold + spectacular = worth every shiver.
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">12:00 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🤠 Lunch</div>
+        <div class="activity-title">Rustler's Restaurant</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">A rustic Utah lunch spot with all the Western charm — generous portions, good burgers, and the honest-cooking energy of a place where people actually work the land. Perfect for refueling between hikes.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>Post-hike casual is the entire aesthetic here. Hiking pants, trail shoes, and a hat are standard dress code. Nobody's changing out of their gear — and nobody expects you to.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">1:30 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🥾 Hike</div>
+        <div class="activity-title">Navajo Loop Trail — The Best Hike in Bryce</div>
+        <div class="activity-desc">If you hike one trail in Bryce Canyon, make it this one. The Navajo Loop plunges you <em>into</em> the amphitheater — past Thor's Hammer (a balanced rock on an absurdly narrow column that defies physics), through Wall Street (a slot canyon with towering fir trees growing improbably from its floor), and around some of the most dramatic hoodoo formations on the planet. The descent is steep and exciting; the climb back out is short but rewarding. Bring water. Bring your camera. Bring snacks. You'll stop every 30 seconds.</div>
+        <div class="stats-row">
+          <span class="stat-pill orange">🟠 Moderate • 1.3–1.5 mi</span>
+          <span class="stat-pill">⬇️ 550 ft elevation change</span>
+          <span class="stat-pill">⏱️ 1–2 hours</span>
+        </div>
+        <div class="tip-box">
+          <strong>⚠️ 2026 Trail Note</strong>
+          The Wall Street section is closed Mon–Thu, 6 AM–Noon for trail work in 2026. You're hiking Friday — <strong>you're all clear!</strong> The Two Bridges alternate is always open as a backup regardless.
+        </div>
+        <div class="img-strip">
+          <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80" alt="Bryce Canyon hoodoos">
+          <img src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=600&q=80" alt="Slot canyon passage">
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">4:00 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🌲 Hike</div>
+        <div class="activity-title">Bristlecone Loop Trail — Walk Among Ancients</div>
+        <div class="activity-desc">A complete change of pace — and totally worth it. At Rainbow Point (the far south end of the park, 9,100 feet elevation), this gentle 1-mile loop winds through a subalpine forest past trees that were saplings during the Roman Empire. The oldest Bristlecone Pine here is over 1,800 years old. Stand next to it and try not to feel tiny. Views stretch to the Four Corners region. Blissfully uncrowded compared to the main amphitheater.</div>
+        <div class="stats-row">
+          <span class="stat-pill green">🟢 Easy • 1.0 mi loop</span>
+          <span class="stat-pill blue">📍 9,100+ ft elevation</span>
+          <span class="stat-pill">🌲 1,800-year-old trees</span>
+        </div>
+        <div class="img-strip single">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80" alt="Ancient pine forest with canyon views" style="height:200px">
+        </div>
+        <div class="img-caption">These trees have been alive since before the Vikings. Let that sink in.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">7:00 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label food">✨ Dinner</div>
+        <div class="activity-title">Sky Nova Bar &amp; Grill — Dinner Under Glass</div>
+        <div class="badge res-needed">⚠️ Reservations Required — Book Early!</div>
+        <div class="activity-desc">This is not your average resort restaurant. Sky Nova is a celestial-themed, futuristic dining room inside a massive glass dome — 28 feet of floor-to-ceiling panoramic glass overlooking the canyon while you eat. Vegan and gluten-free options, cocktails (budget tip: stick to beer and wine — cocktails at Utah resorts are notoriously pricey), and an atmosphere that feels genuinely otherworldly. It's the resort's crown jewel and the perfect reward for Day 2.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p><em>Smart casual</em> — this is the nicest dinner of the trip so far. No need to dress formally, but swap trail shoes for cleaner footwear if you have it. Clean jeans, a nice top or button-down, and you're golden. The dome does the heavy lifting on atmosphere anyway.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DAY 3 ══ -->
+<div class="section-wrap">
+  <div class="day-block">
+    <div class="day-header">
+      <div class="day-number">03</div>
+      <div class="day-info">
+        <span class="day-label">Day Three</span>
+        <div class="day-title">Zion Day — Rappel Into the Earth</div>
+        <span class="day-date">Saturday, July 11</span>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">9:00 AM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label">🚗 Drive to Zion</div>
+        <div class="activity-title">Scenic Drive to East Zion (~1.5 hrs)</div>
+        <div class="activity-desc">The drive from Bryce Canyon to East Zion on Hwy 89 is one of the most stunning road corridors in America — red rock formations, desert valleys, and the dramatic approach of Zion's sandstone towers. Blast a playlist and soak it in.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">10:30 AM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label adventure">🧗 Adventure — ALREADY BOOKED</div>
+        <div class="activity-title">Elkheart Canyon Guided Canyoneering + UTV Tour</div>
+        <div class="badge res-done">✅ Booked &amp; Confirmed</div>
+        <div class="activity-desc">Here it is. The big one. This is the activity you'll be talking about for years. East Zion Adventures takes you by UTV through the rugged backcountry mountains — then you strap into a harness and rappel <strong>three times</strong>, with the biggest descent reaching 100 feet straight into a stunning private slot canyon. It sounds terrifying. It is terrifying, in the absolute best way. Expert certified guides handle everything — beginners are the norm here, not the exception. Canyon walls soar over 100 feet on either side, you lower yourself through twisted passages millions of years in the making, and by the end, everyone in the group will be pumping their fists.</div>
+        <div class="stats-row">
+          <span class="stat-pill orange">🎯 3 rappels — up to 100 ft</span>
+          <span class="stat-pill">⏱️ 3–4 hours</span>
+          <span class="stat-pill blue">👶 Ages 8+ • No experience needed</span>
+          <span class="stat-pill">⚖️ Weight limit: 250 lbs</span>
+        </div>
+        <div class="tip-box">
+          <strong>🩱 Wear &amp; Bring</strong>
+          Closed-toe shoes with good grip — mandatory. Clothes you don't mind getting dusty or slightly wet (the canyon can have water). Sunscreen, water, and please attach your phone/camera with a strap. The guides are excellent photographers for your triumphant moments.
+        </div>
+        <div class="img-strip">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Canyon rappelling">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80" alt="Slot canyon walls">
+        </div>
+        <div class="img-caption">Elkheart Canyon — private backcountry access, walls soaring 100+ feet, certified guides, zero regrets.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">1:00 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🌮 Lunch</div>
+        <div class="activity-title">Thunderbird Café</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">A legendary roadside Utah institution near Mt. Carmel Junction. Classic stop on the Zion corridor — expect a solid refueling meal after your morning of rappelling. You've earned every single calorie.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>You're fresh off a canyoneering adventure — dusty, exhilarated, completely comfortable in whatever you rappelled in. Super casual here. Hiking clothes are 100% the norm.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">2:00 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🐉 Hike</div>
+        <div class="activity-title">Belly of the Dragon — The Coolest Weird Photo Stop in Utah</div>
+        <div class="activity-desc">In a state full of spectacular slot canyons, Belly of the Dragon is the fun, strange, Instagram-perfect wildcard. Originally a man-made drainage tunnel under Hwy 89, years of water flow carved the walls into rippled, rib-like patterns that look exactly like the inside of a dragon. It's dark, atmospheric, and genuinely eerie. There's a 4–5 foot scramble to get in (half the fun). Beyond the tunnel: sandy wash with canyon walls, perfect for photos and an easy stroll. Quirky, free, and under an hour — the ideal adventure between bigger adventures.</div>
+        <div class="stats-row">
+          <span class="stat-pill green">🟢 Easy • 1.8 mi round trip</span>
+          <span class="stat-pill">🔦 Bring a flashlight!</span>
+          <span class="stat-pill orange">⛈️ Do NOT enter if raining — flash flood risk</span>
+        </div>
+        <div class="img-strip single">
+          <img src="https://images.unsplash.com/photo-1558981285-6f0c7b53e6eb?w=800&q=80" alt="Tunnel canyon with dramatic light" style="height:200px">
+        </div>
+        <div class="img-caption">The Belly of the Dragon — weird, wonderful, and completely free. Perfect between the big adventures.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">3:30 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🥾 Hike</div>
+        <div class="activity-title">Canyon Overlook Trail — Zion's Best Bang for Your Buck</div>
+        <div class="activity-desc">Literally nicknamed "the best bang for the buck in Zion" by hiking guides everywhere, and deservedly so. This 1-mile round trip packs in catwalks above a sinuous slot canyon, shaded grottos, slickrock scrambling, and delivers a jaw-dropping panorama: West Temple, Towers of the Virgins, the Streaked Wall, the massive Great Arch below you. The East Temple towers 2,200 feet directly above. Note: no shuttle stop here — private vehicle only, parking is limited and fills early.</div>
+        <div class="stats-row">
+          <span class="stat-pill orange">🟠 Moderate • 1.0 mi round trip</span>
+          <span class="stat-pill">⏱️ ~1 hour</span>
+          <span class="stat-pill blue">🅿️ Limited parking — arrive early or expect overflow</span>
+        </div>
+        <div class="img-strip single">
+          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" alt="Zion Canyon panoramic view" style="height:230px">
+        </div>
+        <div class="img-caption">One mile of effort. A lifetime of memory. Canyon Overlook, Zion National Park.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">6:30 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🍔 Dinner</div>
+        <div class="activity-title">Red Dirt Diner</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">A Southern Utah diner in the honest, no-fuss tradition. Exactly what you want after a full day of rappelling, dragon tunnels, and canyon views. Good burgers, cold drinks, generous portions.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>A diner. Wear what you hiked in. Nobody's judging. Trail shoes, dusty jeans, and adventure hair are the unofficial uniform of every patron in a southern Utah roadside stop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DAY 4 ══ -->
+<div class="section-wrap">
+  <div class="day-block">
+    <div class="day-header">
+      <div class="day-number">04</div>
+      <div class="day-info">
+        <span class="day-label">Day Four</span>
+        <div class="day-title">Waterfalls, Sunsets &amp; the Grand Finale Dinner</div>
+        <span class="day-date">Sunday, July 12</span>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">9:00 AM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🌅 Morning Hike — Choose Your Adventure</div>
+        <div class="activity-title">Angels Palace Trail <em>or</em> Willis Creek Slot Canyon</div>
+        <div class="activity-desc">
+          Two excellent options depending on the group's energy level:<br><br>
+          <strong>🌄 Angels Palace Trail</strong> — Sweeping panoramas and pink hoodoo formations on a less-trafficked trail near Bryce. A local secret with big views. Moderate difficulty.<br><br>
+          <strong>🪨 Willis Creek Slot Canyon</strong> — A free, permit-free slot canyon with gorgeous red and orange walls. Follows a stream bed, so expect wet feet and a fed Instagram. Very accessible, deeply beautiful, great for all levels.
+        </div>
+        <div class="stats-row">
+          <span class="stat-pill green">🟢 Both: Easy–Moderate</span>
+          <span class="stat-pill orange">💧 Willis Creek: water &amp; wet feet</span>
+          <span class="stat-pill blue">🆓 Willis Creek is FREE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">12:00 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🥗 Lunch</div>
+        <div class="activity-title">Roasted Root Café</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">A fresh, café-style spot — think lighter, vegetable-forward dishes, soups, and sandwiches. A nice counterbalance before the afternoon's biggest hike. Re-energize properly — you'll need it.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>Casual café vibes. Hiking clothes are completely appropriate — think farmers market energy. Clean, comfortable, low-key.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">1:00 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">💦 Hike</div>
+        <div class="activity-title">Lower Calf Creek Falls — Utah's Hidden Paradise</div>
+        <div class="activity-desc">This is the hike that surprises everyone. A 6.2-mile round trip through Grand Staircase-Escalante National Monument along towering red sandstone canyon walls, past ancient Native American granaries, beaver ponds, and desert wildflowers — ending at a 126-foot waterfall crashing into a blue-green swimming hole. The mist hits you long before you see the falls. The cold plunge at the end is genuinely transcendent after hiking through desert heat. It's moderately challenging (some deep sandy sections feel like beach walking), but after the Navajo Loop and Elkheart Canyon, you've got this.</div>
+        <div class="stats-row">
+          <span class="stat-pill orange">🟠 Moderate • 6.2 mi round trip</span>
+          <span class="stat-pill">⏱️ 3–4 hours</span>
+          <span class="stat-pill blue">💦 126-ft waterfall + swimming hole</span>
+          <span class="stat-pill green">🐾 Dogs welcome on leash</span>
+        </div>
+        <div class="tip-box">
+          <strong>🩱 Pack for This One</strong>
+          Swimsuit (absolutely mandatory). Plenty of water — there's a refill station at the trailhead. Sun hat. Snacks. The payoff is extraordinary. Start by 1 PM to allow time before your special dinner.
+        </div>
+        <div class="img-strip">
+          <img src="https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=600&q=80" alt="Waterfall in desert canyon" style="height:220px">
+          <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80" alt="Red canyon walls Utah" style="height:220px">
+        </div>
+        <div class="img-caption">Lower Calf Creek Falls — 126 feet of ice-cold perfection at the end of a 3-mile desert hike.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">6:30 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🏕️ Dinner</div>
+        <div class="activity-title">Bryce Canyon Lodge Restaurant — The Grand Finale</div>
+        <div class="badge no-res">No Reservation — Arrive When They Open (5 PM) to Beat the Wait</div>
+        <div class="activity-desc">Save your best meal for this one. The Lodge at Bryce Canyon Restaurant is a National Historic Landmark — a grand dining room with a soaring stone fireplace, rich wood beams, and towering pines outside the windows. The menu features locally-influenced, sustainably sourced dishes: buffalo sirloin steak, pineapple-glazed pork tenderloin, almond-panko-crusted trout, elk chili. The atmosphere is unmistakably western-elegant and deeply memorable. Arrive at 5 PM when they open to get good seats — by 6:30 PM it'll be packed.</div>
+        <div class="attire-box">
+          <strong>👕 Attire — Step It Up Tonight</strong>
+          <p>"National Park dressy" — clean jeans or chinos, a nicer top or button-down shirt, real shoes instead of sandals or trail runners. You don't need a blazer, but this is your one fancy meal of the trip. Think: classy enough to feel special, comfortable enough to still feel like you're on vacation.</p>
+        </div>
+        <div class="stats-row">
+          <span class="stat-pill orange">🍷 Serves wine &amp; beer</span>
+          <span class="stat-pill green">🌿 Sustainable + organic ingredients</span>
+          <span class="stat-pill blue">🏛️ National Historic Landmark</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">8:30 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label hike">🌇 Evening Walk</div>
+        <div class="activity-title">Sunset Point — Your Victory Lap</div>
+        <div class="activity-desc">Walk it off and soak it all in. Sunset Point gives you the Bryce Amphitheater glowing in late golden light — hoodoos turning from pink to amber to deep red as the sun sets behind you. The easy paved rim walk between Sunset and Sunrise Point is accessible and magical at this hour. You've hiked this canyon, rappelled into slot canyons, walked among ancient trees, and swum under a desert waterfall. This is your victory lap, and it's a beautiful one.</div>
+        <div class="tip-box">
+          <strong>📸 Golden Hour Alert</strong>
+          July sunset at Bryce Canyon is around 8:45–9:00 PM. The light from 7:30–9:00 PM is extraordinary — long shadows, warm amber tones, far fewer people than midday. Charge your phone. You will take one hundred photos.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DAY 5 ══ -->
+<div class="section-wrap">
+  <div class="day-block">
+    <div class="day-header">
+      <div class="day-number">05</div>
+      <div class="day-info">
+        <span class="day-label">Day Five</span>
+        <div class="day-title">One Last Bite, Then Home</div>
+        <span class="day-date">Monday, July 13</span>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">9:00 AM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label">🧳 Check Out</div>
+        <div class="activity-title">Pack Up &amp; Leave Clear Sky Resort</div>
+        <div class="activity-desc">Take one more look out those dome windows. The canyon, the pines, the silence. Then start the (bittersweet) packing. Check-out is by 11 AM — you've got a long but gorgeous drive north to Salt Lake City ahead.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">12:30 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label food">🍗 Lunch</div>
+        <div class="activity-title">Super Chik'n — Spanish Fork</div>
+        <div class="badge no-res">No Reservation Needed</div>
+        <div class="activity-desc">A worthy final meal on the drive home. Super Chik'n is a beloved local spot in Spanish Fork with incredible chicken sandwiches, tenders, and sauces — the kind of place that punches way above its strip-mall weight class and leaves you wishing Utah had a location back in Texas. Perfect last fuel stop before the flight.</div>
+        <div class="attire-box">
+          <strong>👕 Attire</strong>
+          <p>You're basically in airport casual mode now. Whatever's comfortable, whatever's easy. You've earned the right to dress however you want after this week.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">1:30 PM</div>
+      <div class="activity-dot"></div>
+      <div class="activity-content">
+        <div class="activity-label">🚗 Final Drive</div>
+        <div class="activity-title">Spanish Fork → SLC Airport (~1 hr)</div>
+        <div class="activity-desc">One last look at the Wasatch Mountains to the east as you cruise north on I-15. Return the rental car and coast into the airport on a wave of sunburned, blissed-out, trail-dusty vacation glow.</div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-time">4:40 PM</div>
+      <div class="activity-dot highlight"></div>
+      <div class="activity-content">
+        <div class="activity-label">✈️ Departure</div>
+        <div class="activity-title">Fly Home: SLC → DFW</div>
+        <div class="activity-desc">Back to Texas, full of stories. You rappelled 100 feet into a slot canyon. You chased sunrises at 8,000 feet. You walked among 1,800-year-old trees and stood at the edge of two national parks. You slept in a glass dome under the Milky Way. You swam under a 126-foot waterfall in the desert.<br><br><strong style="color: var(--rust)">Not a bad week. Not bad at all.</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PACKING SECTION -->
+<div style="background: var(--sand); padding: 60px 0; margin-top: 60px;">
+  <div class="section-wrap">
+    <div style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--canyon); margin-bottom: 8px; text-align: center;">Don't You Dare Forget</div>
+    <div style="text-align: center; color: var(--muted); font-size: 0.85rem; margin-bottom: 32px; letter-spacing: 0.1em; text-transform: uppercase;">The Essential Packing List</div>
+    <div class="packing-grid">
+      <div class="pack-card">
+        <div class="icon">☀️</div>
+        <strong>Sun Protection</strong>
+        <p>SPF 50+ sunscreen, wide-brim hat, UV sunglasses. Utah at altitude is absolutely relentless.</p>
+      </div>
+      <div class="pack-card">
+        <div class="icon">🥾</div>
+        <strong>Hiking Shoes</strong>
+        <p>Closed-toe with grip. Mandatory for Elkheart Canyon. Good tread saves your knees on the Navajo Loop descent.</p>
+      </div>
+      <div class="pack-card">
+        <div class="icon">💧</div>
+        <strong>Hydration</strong>
+        <p>Reusable water bottles. 2L+ per person per hike minimum. The desert will humble even experienced hikers.</p>
+      </div>
+      <div class="pack-card">
+        <div class="icon">🩱</div>
+        <strong>Swimsuit</strong>
+        <p>Essential for Lower Calf Creek Falls. The swimming hole is incredible and you'll regret not having one.</p>
+      </div>
+      <div class="pack-card">
+        <div class="icon">🔦</div>
+        <strong>Flashlight / Headlamp</strong>
+        <p>Belly of the Dragon tunnel + early morning hikes. Phone flashlight works in a pinch but bring a real one.</p>
+      </div>
+      <div class="pack-card">
+        <div class="icon">🧥</div>
+        <strong>Layers</strong>
+        <p>Bryce Canyon mornings at 8,000 ft can be 45°F. A lightweight fleece or jacket goes a very long way.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p style="margin-bottom: 8px; font-size: 1rem; color: var(--sand);"><strong>Utah 2026</strong> — Bryce Canyon · Zion · Grand Staircase-Escalante</p>
+  <p>July 9–13, 2026 &nbsp;•&nbsp; 5 Days &nbsp;•&nbsp; ~30 Miles of Trails &nbsp;•&nbsp; One Unforgettable Adventure</p>
+  <p style="margin-top: 16px; font-size: 0.75rem; color: rgba(242,232,217,0.3);">Pack it in. Pack it out. Leave no trace. These places need to be here for the next generation too. 🏜️</p>
+</footer>
+
+</body>
+</html>
