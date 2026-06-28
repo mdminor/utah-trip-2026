@@ -100,13 +100,28 @@
   footer { background: var(--charcoal); color: rgba(242,232,217,0.5); text-align: center; padding: 40px 20px; font-size: 0.8rem; margin-top: 80px; letter-spacing: 0.1em; }
   footer strong { color: var(--terracotta); }
 
-  @media (max-width: 600px) {
-    .activity { grid-template-columns: 60px 1fr; gap: 0 14px; }
-    .activity::before { left: 29px; }
-    .activity-dot { left: 22px; }
-    .activity-dot.highlight { left: 20px; }
-    .img-strip img { height: 130px; }
+@media (max-width: 600px) {
+  .activity { grid-template-columns: 1fr; gap: 0; }
+  .activity::before { display: none; }
+  .activity-dot { display: none; }
+  .activity-dot.highlight { display: none; }
+  .activity-time {
+    font-size: 0.72rem;
+    padding-top: 20px;
+    padding-bottom: 2px;
+    text-align: left;
+    color: var(--terracotta);
+    font-weight: 700;
   }
+  .activity-content { padding-top: 4px; }
+  .img-strip img { height: 130px; }
+  .img-strip { grid-template-columns: 1fr; }
+  .day-number { font-size: 2rem; }
+  .day-title { font-size: 1.4rem; }
+  .activity-title { font-size: 1.15rem; }
+  .stats-row { gap: 6px; }
+  .stat-pill { font-size: 0.7rem; }
+}
 </style>
 </head>
 <body>
