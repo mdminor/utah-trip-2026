@@ -365,6 +365,75 @@ function renderWeather(location, data) {
 
 locations.forEach(fetchWeather);
 </script>
+
+<div style="background:#1a0f08; padding: 0 24px 48px;">
+  <div style="max-width:860px; margin:0 auto;">
+    <div style="font-family:'Playfair Display',serif; font-size:1.6rem; color:#F2E8D9; text-align:center; margin-bottom:6px;">Packing List</div>
+    <div style="font-family:'Caveat',cursive; font-size:1.1rem; color:#D4623A; text-align:center; margin-bottom:28px;">Don't leave home without it 🎒</div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
+        <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">👟 Clothing & Footwear</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Hiking shoes (closed-toe, good grip)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Comfortable walking shoes / sneakers</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Water shoes or sandals</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Hiking pants / shorts</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Moisture-wicking t-shirts</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Light fleece or jacket (mornings are cold!)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Swimsuit (mandatory for Calf Creek)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Wide-brim hat or baseball cap</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> One nicer outfit for Bryce Canyon Lodge</label>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
+        <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">🎒 Gear & Essentials</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Daypack / backpack</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Reusable water bottles (2L+ per person)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Headlamp or flashlight (Belly of the Dragon!)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Trekking poles (optional but helpful)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Camera + extra memory card</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Portable phone charger / power bank</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Binoculars (great for hoodoo spotting)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Small dry bag for Calf Creek</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> National Parks pass (or cash for entry fees)</label>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
+        <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">💊 Health & Safety</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Sunscreen SPF 50+ (bring more than you think)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> UV sunglasses</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Lip balm with SPF</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Bug repellent</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Basic first aid kit</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Blister pads / moleskin</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Ibuprofen / pain reliever</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Personal medications</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Hand sanitizer & wet wipes</label>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
+        <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">🍎 Food & Snacks</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Trail mix & nuts</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Energy bars / granola bars</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Electrolyte packets / sports drinks</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Fruit & easy snacks for the car</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Cooler with drinks & cold snacks</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Coffee / tea supplies for the resort</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Reusable utensils & napkins</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
   
 <!-- ══ DAY 1 ══ -->
 <div class="section-wrap">
