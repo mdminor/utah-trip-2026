@@ -135,6 +135,30 @@
     <div class="hero-dates">
       <span>July 9</span> — <span>July 13, 2026</span>
     </div>
+    <div class="hero-dates">
+  <span>July 9</span> — <span>July 13, 2026</span>
+</div>
+<a href="#agenda" style="
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 32px;
+  background: transparent;
+  border: 2px solid rgba(242,232,217,0.4);
+  border-radius: 50px;
+  color: rgba(242,232,217,0.8);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 2;
+  " onmouseover="this.style.background='rgba(242,232,217,0.1)'; this.style.borderColor='rgba(242,232,217,0.7)'; this.style.color='#F2E8D9';"
+  onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(242,232,217,0.4)'; this.style.color='rgba(242,232,217,0.8)';">
+  Skip to Agenda ↓
+</a>
   </div>
   <div class="hoodoos">
     <svg viewBox="0 0 1400 220" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
@@ -375,15 +399,13 @@ locations.forEach(fetchWeather);
       <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
         <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">👟 Clothing & Footwear</div>
         <div style="display:flex; flex-direction:column; gap:8px;">
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Hiking shoes (closed-toe, good grip)</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Comfortable walking shoes / sneakers</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Water shoes or sandals</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Comfortable walking shoes / sneakers (closed-toe, good grip)</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Hiking pants / shorts</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Moisture-wicking t-shirts</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> T-shirts</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Light fleece or jacket (mornings are cold!)</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Swimsuit (mandatory for Calf Creek)</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Swimsuit (if you want to get in the waterfall)</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Wide-brim hat or baseball cap</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> One nicer outfit for Bryce Canyon Lodge</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> One nicer outfit for Bryce Canyon Lodge (but not too fancy)</label>
         </div>
       </div>
 
@@ -391,13 +413,10 @@ locations.forEach(fetchWeather);
         <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">🎒 Gear & Essentials</div>
         <div style="display:flex; flex-direction:column; gap:8px;">
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Daypack / backpack</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Reusable water bottles (2L+ per person)</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Headlamp or flashlight (Belly of the Dragon!)</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Trekking poles (optional but helpful)</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Camera + extra memory card</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Portable phone charger / power bank</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Binoculars (great for hoodoo spotting)</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Small dry bag for Calf Creek</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> National Parks pass (or cash for entry fees)</label>
         </div>
       </div>
@@ -406,7 +425,7 @@ locations.forEach(fetchWeather);
         <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">💊 Health & Safety</div>
         <div style="display:flex; flex-direction:column; gap:8px;">
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Sunscreen SPF 50+ (bring more than you think)</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> UV sunglasses</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Sunglasses</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Lip balm with SPF</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Bug repellent</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Basic first aid kit</label>
@@ -420,13 +439,13 @@ locations.forEach(fetchWeather);
       <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:20px;">
         <div style="font-family:'Playfair Display',serif; font-size:1rem; color:#FFB07A; margin-bottom:14px;">🍎 Food & Snacks</div>
         <div style="display:flex; flex-direction:column; gap:8px;">
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Bottled Water</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Trail mix & nuts</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Energy bars / granola bars</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Electrolyte packets / sports drinks</label>
           <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Fruit & easy snacks for the car</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Cooler with drinks & cold snacks</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Coffee / tea supplies for the resort</label>
-          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Reusable utensils & napkins</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Snacks & sweets for the room</label>
+          <label style="display:flex; align-items:center; gap:10px; color:#F2E8D9; font-size:0.85rem; cursor:pointer;"><input type="checkbox" style="accent-color:#D4623A; width:16px; height:16px;"> Other drinks for the room</label>
         </div>
       </div>
 
@@ -436,7 +455,7 @@ locations.forEach(fetchWeather);
 
   
 <!-- ══ DAY 1 ══ -->
-<div class="section-wrap">
+<div class="section-wrap" id="agenda">
   <div class="day-block">
     <div class="day-header">
       <div class="day-number">01</div>
