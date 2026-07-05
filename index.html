@@ -181,6 +181,191 @@
   <p>Five days. Two national parks. One glass dome under the Milky Way. You're about to walk through slot canyons, hike to 1,800-year-old trees, chase sunrises over a canyon full of alien-pink hoodoos, and swim under a 126-foot waterfall in the desert. <strong>Pack your hiking boots and your sense of wonder.</strong></p>
 </div>
 
+<div style="background:#1a0f08; padding: 40px 24px;">
+  <div style="max-width:860px; margin:0 auto;">
+    <div style="font-family:'Playfair Display',serif; font-size:1.6rem; color:#F2E8D9; text-align:center; margin-bottom:6px;">5-Day Forecast</div>
+    <div style="font-family:'Caveat',cursive; font-size:1.1rem; color:#D4623A; text-align:center; margin-bottom:28px;">Know before you go ☀️</div>
+    <div id="weather-container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+      <div class="weather-card" id="weather-cannonville">
+        <div class="weather-loading">Loading forecast...</div>
+      </div>
+      <div class="weather-card" id="weather-bryce">
+        <div class="weather-loading">Loading forecast...</div>
+      </div>
+      <div class="weather-card" id="weather-zion">
+        <div class="weather-loading">Loading forecast...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .weather-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 20px;
+    color: #F2E8D9;
+  }
+  .weather-location {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #FFB07A;
+    margin-bottom: 4px;
+  }
+  .weather-dates {
+    font-size: 0.7rem;
+    color: rgba(242,232,217,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .weather-days {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .weather-day {
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 8px 4px;
+  }
+  .weather-day-label {
+    font-size: 0.65rem;
+    color: rgba(242,232,217,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .weather-icon { font-size: 1.4rem; margin-bottom: 4px; }
+  .weather-high {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #FFB07A;
+  }
+  .weather-low {
+    font-size: 0.75rem;
+    color: rgba(242,232,217,0.5);
+  }
+  .weather-desc {
+    font-size: 0.65rem;
+    color: rgba(242,232,217,0.5);
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+  .weather-loading {
+    color: rgba(242,232,217,0.4);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .weather-error {
+    color: rgba(242,232,217,0.4);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 10px 0;
+  }
+</style>
+
+<script>
+const locations = [
+  {
+    id: 'weather-cannonville',
+    name: 'Cannonville / Clear Sky Resort',
+    dates: 'Jul 9–10',
+    lat: 37.5680,
+    lon: -112.0477
+  },
+  {
+    id: 'weather-bryce',
+    name: 'Bryce Canyon',
+    dates: 'Jul 10–12',
+    lat: 37.6283,
+    lon: -112.1677
+  },
+  {
+    id: 'weather-zion',
+    name: 'Zion / East Zion',
+    dates: 'Jul 11',
+    lat: 37.2982,
+    lon: -113.0263
+  }
+];
+
+const weatherCodes = {
+  0:  { icon: '☀️',  desc: 'Clear' },
+  1:  { icon: '🌤️', desc: 'Mostly Clear' },
+  2:  { icon: '⛅',  desc: 'Partly Cloudy' },
+  3:  { icon: '☁️',  desc: 'Overcast' },
+  45: { icon: '🌫️', desc: 'Foggy' },
+  48: { icon: '🌫️', desc: 'Icy Fog' },
+  51: { icon: '🌦️', desc: 'Light Drizzle' },
+  53: { icon: '🌦️', desc: 'Drizzle' },
+  55: { icon: '🌧️', desc: 'Heavy Drizzle' },
+  61: { icon: '🌧️', desc: 'Light Rain' },
+  63: { icon: '🌧️', desc: 'Rain' },
+  65: { icon: '🌧️', desc: 'Heavy Rain' },
+  71: { icon: '🌨️', desc: 'Light Snow' },
+  73: { icon: '🌨️', desc: 'Snow' },
+  75: { icon: '❄️',  desc: 'Heavy Snow' },
+  80: { icon: '🌦️', desc: 'Showers' },
+  81: { icon: '🌧️', desc: 'Rain Showers' },
+  82: { icon: '⛈️',  desc: 'Heavy Showers' },
+  95: { icon: '⛈️',  desc: 'Thunderstorm' },
+  96: { icon: '⛈️',  desc: 'Thunderstorm' },
+  99: { icon: '⛈️',  desc: 'Thunderstorm' }
+};
+
+const dayLabels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+async function fetchWeather(location) {
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=America%2FDenver&forecast_days=5`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    renderWeather(location, data);
+  } catch (err) {
+    document.getElementById(location.id).innerHTML = `
+      <div class="weather-location">${location.name}</div>
+      <div class="weather-error">Forecast unavailable — check back closer to your trip.</div>
+    `;
+  }
+}
+
+function renderWeather(location, data) {
+  const { temperature_2m_max, temperature_2m_min, weathercode, time } = data.daily;
+
+  const daysHTML = time.map((dateStr, i) => {
+    const date = new Date(dateStr + 'T12:00:00');
+    const label = dayLabels[date.getDay()];
+    const code = weathercode[i];
+    const weather = weatherCodes[code] || { icon: '🌡️', desc: 'Mixed' };
+    const high = Math.round(temperature_2m_max[i]);
+    const low = Math.round(temperature_2m_min[i]);
+
+    return `
+      <div class="weather-day">
+        <div class="weather-day-label">${label}</div>
+        <div class="weather-icon">${weather.icon}</div>
+        <div class="weather-high">${high}°</div>
+        <div class="weather-low">${low}°</div>
+        <div class="weather-desc">${weather.desc}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById(location.id).innerHTML = `
+    <div class="weather-location">${location.name}</div>
+    <div class="weather-dates">${location.dates}</div>
+    <div class="weather-days">${daysHTML}</div>
+  `;
+}
+
+locations.forEach(fetchWeather);
+</script>
+  
 <!-- ══ DAY 1 ══ -->
 <div class="section-wrap">
   <div class="day-block">
